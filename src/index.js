@@ -36,7 +36,7 @@ const topMenuEl = document.getElementById("top-menu");
 //const formEl = document.createElement("form");
 
 topMenuEl.style.height = "100%";
-topMenuEl.style.backgroundColor = "rgb(14, 154, 167)"; //"var(--top-menu-bg)";
+topMenuEl.style.backgroundColor = "var(--top-menu-bg)";
 topMenuEl.classList.add("flex-around");
 
 menuLinks.forEach((link) => {
@@ -77,7 +77,40 @@ for (let i = 1; i < menuLinks.length; i++) {
   subLinksArray[i] = menuLinks[i].subLinks;
 }
 
+const mainEl = document.querySelector("main");
 
+mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
+mainEl.style.color = "var(--top-menu-bg)";
+mainEl.style.flexDirection = "column";
+mainEl.innerHTML = "<h1>Contents</h1>";
+mainEl.classList.add("flex-ctr");
 
+function createFrag(title, image) {
+  // Creating a DocumentFragment
+  const frag = document.createDocumentFragment();
+  const heading = frag.appendChild(document.createElement("h1"));
+  heading.textContent = title;
   
+  frag.appendChild(document.createElement("hr"));
+
+  const myImage = frag.appendChild(document.createElement("img"));
+
+  myImage.style.width = "50%";
+  myImage.style.height ="50%";
+  myImage.src = image;
+
+  return frag;
+}
+
+(async () => {
+  const images = [
+    { "title": "Unlocked", "src": "images/unlocked.jpg"}];
+   /*  { "title": "parasit", "src": "image/unlocked.jpg"},
+    { "title": "Unlocked", "src": "image/unlocked.jpg"}
+  ];
+ */
+    images.forEach((image) => {
+      mainEl.appendChild(createFrag(image.title, image.src));
+    })
+})();
 
