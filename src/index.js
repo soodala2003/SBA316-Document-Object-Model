@@ -1,6 +1,16 @@
 var menuLinks = [
   { text: "about", href: "/about" },
   {
+    text: "account",
+    href: "#",
+    subLinks: [
+      { text: "profile", href: "/account/profile" },
+      { text: "login", href: "/account/login" },
+      { text: "sign up", href: "/account/signup" },
+      { text: "sign out", href: "/account/signout" },
+    ],
+  },
+  {
     text: "catalog",
     href: "#",
     subLinks: [
@@ -18,16 +28,6 @@ var menuLinks = [
       { text: "history", href: "/orders/history" },
     ],
   },
-  {
-    text: "account",
-    href: "#",
-    subLinks: [
-      { text: "profile", href: "/account/profile" },
-      { text: "login", href: "/account/login" },
-      { text: "sign up", href: "/account/signup" },
-      { text: "sign out", href: "/account/signout" },
-    ],
-  },
 ];
 
 const mainEl = document.querySelector("main");
@@ -40,9 +40,6 @@ mainEl.style.flexDirection = "column";
 mainEl.classList.add("flex-ctr");
 
 const topMenuEl = document.getElementById("top-menu");
-//const divEl = document.createElement("div");
-//const ulEl = document.createElement("ul");
-//const formEl = document.createElement("form");
 
 topMenuEl.style.height = "100%";
 topMenuEl.style.backgroundColor = "var(--top-menu-bg)";
@@ -65,50 +62,47 @@ let topMenuChildren = [];
 for (let i = 0; i < topMenuEl.children.length; i++) {
   topMenuChildren.push(topMenuEl.children[i]);
 }
-console.log(topMenuChildren);
+//console.log(topMenuChildren); // Array: length=4
 
 topMenuEl.addEventListener("click", (event) => {
   event.preventDefault();
   if (event.target.localName !== "a") {
     return;
   }
-
   // Log the content of the <a> to verify the handler is working
-  console.log(event.target.text);
-
-  // Adding Submenu Interaction
-  // Add a toggled "active" state to each menu item
-  topMenuChildren.forEach((e) => {
-    if (e !== event.target) {
-      e.removeAttribute("class");
-    }
-  });
+  //console.log(event.target.text);
 
   if (event.target.hasAttribute("class")) {
     event.target.removeAttribute("class");
-    //myFunction()
-    mainEl.firstChild.innerText = "DOM Manipulation";
-  } else {
-    event.target.classList.add("active");
-  }
+    let child = mainEl.firstElementChild;
+    subMenuEl.style.top = "0";
+    while (child) {
+      mainEl.removeChild(child);
+      child = mainEl.firstElementChild;
+    };
 
-  if (
-    event.target === topMenuChildren[0] &&
-    event.target.hasAttribute("class")
-  ) {
+    myFunction().then(images.forEach((image) => {
+      mainEl.appendChild(createFrag(image.title, image.src));
+    }));  
+  } 
+  else {
+    event.target.classList.add("active");
+    topMenuChildren.forEach((e) => { // Add a toggled "active" state to each menu item
+      if (e !== event.target) {
+        e.removeAttribute("class");
+      }
+    });
+  }
+  
+  if (event.target === topMenuChildren[0]) {
     mainEl.innerHTML = "<h1>About</h1>";
     subMenuEl.style.top = "0";
-  } else if (event.target !== topMenuChildren[0]) {
+  } 
+  else {
     event.target.setAttribute("subLinks", buildSubmenu(event.target.text));
-
-    if (event.target.hasAttribute("class")) {
-      subMenuEl.style.top = "100%";
-    } else {
-      subMenuEl.style.top = "0";
-    }
+    subMenuEl.style.top = "100%";
   }
-
-});
+}); 
 
 // Creating the Submenu
 const subMenuEl = document.getElementById("sub-menu");
@@ -146,7 +140,8 @@ subMenuEl.addEventListener("click", (e) => {
 
   // Update the contents of mainEl, within an <h1>,
   // to the contents of the <a> element clicked within subMenuEl
-  mainEl.firstChild.innerText = str;
+  mainEl.firstElementChild.innerText = str;
+  mainEl.removeChild(mainEl.lastElementChild);
 });
 
 // Create a helper function for the submenu bar
@@ -156,7 +151,7 @@ function buildSubmenu(texts) {
     subMenuEl.removeChild(subMenuEl.firstChild);
   }
 
-  if (texts === "catalog") {
+  if (texts === "account") {
     let subLinks = subLinksArray[1];
     subLinks.forEach((link) => {
       const subLink = document.createElement("a");
@@ -164,7 +159,7 @@ function buildSubmenu(texts) {
       subLink.textContent = link.text;
       subMenuEl.appendChild(subLink);
     });
-  } else if (texts === "orders") {
+  } else if (texts === "catalog") {
     let subLinks = subLinksArray[2];
     subLinks.forEach((link) => {
       const subLink = document.createElement("a");
@@ -172,7 +167,7 @@ function buildSubmenu(texts) {
       subLink.textContent = link.text;
       subMenuEl.appendChild(subLink);
     });
-  } else if (texts === "account") {
+  } else if (texts === "orders") {
     let subLinks = subLinksArray[3];
     subLinks.forEach((link) => {
       const subLink = document.createElement("a");
@@ -212,7 +207,7 @@ async function myFunction() {
 
 myFunction().then(images.forEach((image) => {
   mainEl.appendChild(createFrag(image.title, image.src));
-}));
+}));  
 
 
 /* (async () => {
@@ -225,5 +220,5 @@ myFunction().then(images.forEach((image) => {
     images.forEach((image) => {
       mainEl.appendChild(createFrag(image.title, image.src));
     })
-})();
+})(); 
 */
