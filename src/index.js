@@ -142,7 +142,21 @@ subMenuEl.addEventListener("click", (e) => {
   // to the contents of the <a> element clicked within subMenuEl
   mainEl.firstElementChild.innerText = str;
   mainEl.removeChild(mainEl.lastElementChild);
+  signUp(str);
 });
+
+function signUp(strings) {
+  const mainDiv = document.createElement("div");
+  mainDiv.style.width ="500px";
+  mainDiv.style.height = "500px";
+  mainDiv.style.backgroundColor = "#eee";
+
+  mainEl.appendChild(mainDiv);
+  //mainDiv.appendChild(document.createElement("h1"));
+  mainDiv.appendChild(document.createElement("p"));
+  //mainDiv.firstElementChild.innerText = strings;
+
+}
 
 // Create a helper function for the submenu bar
 function buildSubmenu(texts) {
@@ -222,3 +236,5 @@ myFunction().then(images.forEach((image) => {
     })
 })(); 
 */
+
+
