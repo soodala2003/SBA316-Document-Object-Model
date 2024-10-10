@@ -35,12 +35,12 @@ const formContainer = mainEl.firstElementChild;
 const loginForm = document.getElementById("login");
 const userInput = loginForm.elements["username"];
 const passwordInput = loginForm.elements["password"];
+const persistCheckbox = loginForm.elements["persist"];
 //console.log(mainEl);
 
 mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
 mainEl.style.color = "var(--top-menu-bg)";
 mainEl.style.flexDirection = "column";
-//mainEl.innerHTML = "<h1>Contents</h1>";
 mainEl.classList.add("flex-ctr");
 
 const topMenuEl = document.getElementById("top-menu");
@@ -89,6 +89,9 @@ topMenuEl.addEventListener("click", (event) => {
       mainEl.appendChild(createFrag(image.title, image.src));
     }));  */
     event.target.removeAttribute("class");
+    if (event.target === topMenuChildren[0]) {
+      closeWindow();
+    }
   } 
   else {
     event.target.classList.add("active");
@@ -100,9 +103,7 @@ topMenuEl.addEventListener("click", (event) => {
     if (event.target === topMenuChildren[0]) {
       subMenuEl.style.top = "0";
       mainEl.innerHTML = "<h1>About</h1>";
-      /* if (!event.target.hasAttribute("class")) {
-        //mainEl.removeChild(mainEl) 
-      } */
+      newWindow();
     } 
     else {
       event.target.setAttribute("subLinks", buildSubmenu(event.target.text));
@@ -116,6 +117,23 @@ topMenuEl.addEventListener("click", (event) => {
     }
   }
 }); 
+
+// Functions for Browser Object Model (BOM) methods
+let myWindow;
+
+function newWindow() {
+  myWindow = window.open(
+    "https://www.netflix.com/browse/genre/5685",
+    "NETFLIX",
+    "width=600, height=500, resizable=yes, scrollbars=yes, location=yes, top=200, left=50"
+  );
+  myWindow.focus();
+}
+
+function closeWindow() {
+  myWindow.close();
+  
+}
 
 // Creating the Submenu
 const subMenuEl = document.getElementById("sub-menu");
@@ -154,14 +172,21 @@ subMenuEl.addEventListener("click", (e) => {
   // Update the contents of mainEl, within an <h1>,
   mainEl.firstElementChild.innerText = str;
   if (mainEl.firstElementChild === mainEl.lastElementChild) {
-    signUp();
+    formSelector();
   } else {
     mainEl.removeChild(lastElementChild);
-    signUp();
+    formSelector();
   }
 });
 
-function signUp() {
+function formSelector() {
+  if (mainEl.firstElementChild.innerText === "Login") {
+    formLogin();
+  }
+}
+
+
+function formLogin() {
   //mainEl.removeChild(lastElementChild);
   const loginDiv = document.createElement("div");
   const p1 = document.createElement("p");
@@ -173,24 +198,16 @@ function signUp() {
   loginDiv.style.backgroundColor = "#eee";
   loginDiv.style.borderRadius = "10px"; 
   loginDiv.style.border = "2px solid gray";
-    loginDiv.style.boxShadow = "5px 10px 10px gray";  
+  loginDiv.style.boxShadow = "5px 10px 10px gray";  
 
   mainEl.appendChild(loginDiv);
   loginDiv.appendChild(p1);
   loginDiv.appendChild(loginForm);
 }
 
-//const loginForm = document.getElementById("login");
-//const userInput = loginForm.elements["username"];
-//const passwordInput = loginForm.elements["password"];
-//passwordField = document.querySelector('[name="password"]');
-//const passwordInput = passwordField.value;
+loginForm.addEventListener("submit", validateForm);
 
-
-
-loginForm.addEventListener("submit", validate);
-
-function validate(evt) {
+function validateForm(evt) {
   evt.preventDefault();
   const userVal = validateUser();
   if (userVal === false) {
@@ -204,9 +221,19 @@ function validate(evt) {
     return false;
   }
 
+  const persistChecked = validateCheckbox();
+  if (!persistChecked) {
+    evt.returnValue = false;
+    return false;
+  } 
+
   alert(`Name: ${userVal}
     Password: ...that's a secret.`);
-    
+  
+  userInput.value = "";
+  passwordInput.value ="";  
+  persistCheckbox.checked = false;
+
   return true;
 }
 
@@ -230,8 +257,15 @@ function validatePassword() {
   return passwordInput.value;
 }
 
-
-
+// Checkbox Validation
+function validateCheckbox() {
+  //let isChecked = true;
+  if (!persistCheckbox.checked) {
+    alert("Please check \"Keep me logged in.\"");
+    return false;
+  } 
+  return true;
+}
 
 // Create a helper function for the submenu bar
 function buildSubmenu(texts) {
