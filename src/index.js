@@ -160,10 +160,12 @@ subMenuEl.addEventListener("click", (e) => {
 
 function signUp() {
   //mainEl.removeChild(lastElementChild);
-  const mainDiv = document.createElement("div");
-  mainDiv.style.width ="500px";
+  const loginDiv = document.createElement("div");
+  loginDiv.classList.add("login-div");
+  mainDiv.style.width ="400px";
   mainDiv.style.height = "500px";
   mainDiv.style.backgroundColor = "#eee";
+  mainDiv.style.borderRadius = "10px";
 
   mainEl.appendChild(mainDiv);
   //mainDiv.appendChild(document.createElement("h1"));
