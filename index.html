@@ -19,10 +19,10 @@
                 <p>Login using your account information.</p>
 
                 <form id="login" style="border-bottom: 1px solid lightgray">
-                    <input name="username" type="text" placeholder="Username" required />
+                    <input name="username" type="text" minlength="4" pattern="^\w*+{2,}\S$" placeholder="Username" required />
                     <span class="input-icon"><i class="fa-solid fa-user"></i></span><br />
           
-                    <input name="password" type="text" placeholder="Password" required />
+                    <input name="password" type="text" minlength="12" placeholder="Password" required />
                     <span class="input-icon"><i class="fa-solid fa-key"></i></span
                     ><br /><br />
           
@@ -33,8 +33,6 @@
                     </div>
                     <br /><br />
                 </form>
-          
-                <p>Forgot your <a href="#">Username</a> or <a href="#">Password?</a></p>
             </div>
         </main>
 
