@@ -74,3 +74,12 @@ nav a.active {
   padding: 5px 10px;
 }
 
+.loginDiv {
+  width: "400px";
+  height: "500px";
+  background-color: "#eee";
+  border-radius: "10px"; 
+  border: "2px solid gray";
+  box-shadow: "5px 10px 10px gray";  
+}
+
