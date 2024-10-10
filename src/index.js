@@ -33,6 +33,7 @@ var menuLinks = [
 const mainEl = document.querySelector("main");
 const formContainer = mainEl.firstElementChild;
 const loginForm = document.getElementById("login");
+const loginDiv = document.createElement("div");
 const userInput = loginForm.elements["username"];
 const passwordInput = loginForm.elements["password"];
 const persistCheckbox = loginForm.elements["persist"];
@@ -188,21 +189,18 @@ function formSelector() {
 
 function formLogin() {
   //mainEl.removeChild(lastElementChild);
-  const loginDiv = document.createElement("div");
   const p1 = document.createElement("p");
+  //const p2 = document.createElement("p");
 
   loginDiv.classList.add("login-div");
   p1.textContent = "Login using your account information.";
-  loginDiv.style.width ="400px";
-  loginDiv.style.height = "500px";
-  loginDiv.style.backgroundColor = "#eee";
-  loginDiv.style.borderRadius = "10px"; 
-  loginDiv.style.border = "2px solid gray";
-  loginDiv.style.boxShadow = "5px 10px 10px gray";  
+  //p2.textContent = "Forgot your <a href="#">Username</a> or <a href="#">Password?</a>";
 
   mainEl.appendChild(loginDiv);
   loginDiv.appendChild(p1);
   loginDiv.appendChild(loginForm);
+  //loginDiv.appendChild(p2);
+
 }
 
 loginForm.addEventListener("submit", validateForm);
