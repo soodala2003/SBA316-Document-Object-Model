@@ -37,13 +37,15 @@ const loginDiv = document.createElement("div");
 const userInput = loginForm.elements["username"];
 const passwordInput = loginForm.elements["password"];
 const persistCheckbox = loginForm.elements["persist"];
-//console.log(mainEl);
 
 mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
 mainEl.style.color = "var(--top-menu-bg)";
 mainEl.style.flexDirection = "column";
 mainEl.classList.add("flex-ctr");
 loginDiv.classList.add("login-div");
+
+  
+
 
 const topMenuEl = document.getElementById("top-menu");
 
@@ -79,18 +81,9 @@ topMenuEl.addEventListener("click", (event) => {
   //console.log(event.target.text);
 
   if (event.target.hasAttribute("class")) {
-    //event.target.removeAttribute("class");
-    //let child = mainEl.firstElementChild;
     subMenuEl.style.top = "0";
-    /* while (child) {
-      mainEl.removeChild(child);
-      child = mainEl.firstElementChild;
-    };  */
-    //myFunction();
-    /* myFunction().then(images.forEach((image) => {
-      mainEl.appendChild(createFrag(image.title, image.src));
-    }));  */
     event.target.removeAttribute("class");
+
     if (event.target === topMenuChildren[0]) {
       closeWindow();
     }
@@ -102,6 +95,7 @@ topMenuEl.addEventListener("click", (event) => {
         e.removeAttribute("class");
       }
     });
+
     if (event.target === topMenuChildren[0]) {
       subMenuEl.style.top = "0";
       mainEl.innerHTML = "<h1>About</h1>";
@@ -110,7 +104,7 @@ topMenuEl.addEventListener("click", (event) => {
     else {
       event.target.setAttribute("subLinks", buildSubmenu(event.target.text));
       subMenuEl.style.top = "100%";
-      //mainEl.firstElementChild.innerHTML =  
+      
       let child = mainEl.firstElementChild.nextElementSibling;
       while (child) {
         mainEl.removeChild(child);
@@ -187,14 +181,14 @@ function formSelector() {
   }
 }
 
-
 function formLogin() {
-  //mainEl.removeChild(lastElementChild);
   const p1 = document.createElement("p");
   //const p2 = document.createElement("p");
 
   p1.textContent = "Login using your account information.";
   //p2.textContent = "Forgot your <a href="#">Username</a> or <a href="#">Password?</a>";
+  p1.style.padding = "5px 10px";
+  p1.style.margin = "2.5px 0px";
 
   mainEl.appendChild(loginDiv);
   loginDiv.appendChild(p1);

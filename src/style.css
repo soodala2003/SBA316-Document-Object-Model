@@ -83,3 +83,58 @@ nav a.active {
   box-shadow: 5px 10px 10px gray;  
 }
 
+#login input[type="text"] {
+  width: 250px;
+  padding: 7px 7px 7px 40px;
+  margin: 5px 0px;
+  outline: 1px solid #888;
+  border: 0px solid #0000;
+  border-radius: 5px;
+}
+
+#login input[type="text"]:focus {
+  outline: 2px solid #ffab40;
+}
+
+#login input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+#login label {
+  align-items: center;
+  cursor: pointer;
+}
+
+#login input[type="submit"] {
+  margin-left: auto;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background: #55ecfc;
+  cursor: pointer;
+}
+
+#login input[type="submit"]:hover {
+  background: #ffab40;
+}
+
+#login .input-icon {
+  position: absolute;
+  left: 10px;
+  margin: 5px 0px;
+  width: 30px;
+  height: 29px;
+  background: #ddd;
+  outline: 1px solid #888;
+  border-right: 0px solid #0000;
+  border-radius: 5px 0px 0px 5px;
+  text-align: center;
+  line-height: 29px;
+}
+
+#login input:focus + .input-icon {
+  color: #ffab40;
+  outline: 2px solid #ffab40;
+  margin: 5px 0px;
+}
