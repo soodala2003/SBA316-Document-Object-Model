@@ -162,10 +162,10 @@ function signUp() {
   //mainEl.removeChild(lastElementChild);
   const loginDiv = document.createElement("div");
   loginDiv.classList.add("login-div");
-  mainDiv.style.width ="400px";
+  maindiv.style.width ="400px";
   mainDiv.style.height = "500px";
   mainDiv.style.backgroundColor = "#eee";
-  mainDiv.style.borderRadius = "10px";
+  mainDiv.style.borderRadius = "10px"; 
 
   mainEl.appendChild(mainDiv);
   //mainDiv.appendChild(document.createElement("h1"));
