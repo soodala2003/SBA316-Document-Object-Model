@@ -31,27 +31,31 @@ var menuLinks = [
 ];
 
 const mainEl = document.querySelector("main");
-const formContainer = mainEl.firstElementChild;
 const loginForm = document.getElementById("login");
 const loginDiv = document.createElement("div");
+const topMenuEl = document.getElementById("top-menu");
+const subMenuEl = document.getElementById("sub-menu");
 const userInput = loginForm.elements["username"];
 const passwordInput = loginForm.elements["password"];
 const persistCheckbox = loginForm.elements["persist"];
+const formContainer = mainEl.firstElementChild;
 
-mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
+
+mainEl.style.backgroundColor = "rgb(209, 232, 226)";  
 mainEl.style.color = "var(--top-menu-bg)";
 mainEl.style.flexDirection = "column";
 mainEl.classList.add("flex-ctr");
 loginDiv.classList.add("login-div");
 
-  
-
-
-const topMenuEl = document.getElementById("top-menu");
-
 topMenuEl.style.height = "100%";
 topMenuEl.style.backgroundColor = "var(--top-menu-bg)";
 topMenuEl.classList.add("flex-around");
+
+subMenuEl.style.height = "100%";
+subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
+subMenuEl.classList.add("flex-around");
+subMenuEl.style.position = "absolute";
+subMenuEl.style.top = "0";
 
 menuLinks.forEach((link) => {
     const myLink = document.createElement("a");
@@ -70,15 +74,13 @@ let topMenuChildren = [];
 for (let i = 0; i < topMenuEl.children.length; i++) {
   topMenuChildren.push(topMenuEl.children[i]);
 }
-//console.log(topMenuChildren); // Array: length=4
 
+// Registering event listener of the topmenu
 topMenuEl.addEventListener("click", (event) => {
   event.preventDefault();
   if (event.target.localName !== "a") {
     return;
   }
-  // Log the content of the <a> to verify the handler is working
-  //console.log(event.target.text);
 
   if (event.target.hasAttribute("class")) {
     subMenuEl.style.top = "0";
@@ -128,18 +130,7 @@ function newWindow() {
 
 function closeWindow() {
   myWindow.close();
-  
 }
-
-// Creating the Submenu
-const subMenuEl = document.getElementById("sub-menu");
-
-subMenuEl.style.height = "100%";
-subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
-subMenuEl.classList.add("flex-around");
-
-subMenuEl.style.position = "absolute";
-subMenuEl.style.top = "0";
 
 // Cache the "link" object for subLinks array
 let subLinksArray = [];
@@ -147,6 +138,7 @@ for (let i = 1; i < menuLinks.length; i++) {
   subLinksArray[i] = menuLinks[i].subLinks;
 }
 
+// Registering event listener of the submenu
 subMenuEl.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -167,6 +159,7 @@ subMenuEl.addEventListener("click", (e) => {
 
   // Update the contents of mainEl, within an <h1>,
   mainEl.firstElementChild.innerText = str;
+
   if (mainEl.firstElementChild === mainEl.lastElementChild) {
     formSelector();
   } else {
@@ -181,24 +174,23 @@ function formSelector() {
   }
 }
 
+// Function is for login form
 function formLogin() {
   const p1 = document.createElement("p");
-  //const p2 = document.createElement("p");
 
   p1.textContent = "Login using your account information.";
-  //p2.textContent = "Forgot your <a href="#">Username</a> or <a href="#">Password?</a>";
   p1.style.padding = "5px 10px";
   p1.style.margin = "2.5px 0px";
 
   mainEl.appendChild(loginDiv);
   loginDiv.appendChild(p1);
   loginDiv.appendChild(loginForm);
-  //loginDiv.appendChild(p2);
-
 }
 
+// Registering event listener of submit a login form
 loginForm.addEventListener("submit", validateForm);
 
+// Validation function for submit 
 function validateForm(evt) {
   evt.preventDefault();
   const userVal = validateUser();
@@ -293,17 +285,14 @@ function buildSubmenu(texts) {
   }
 }
 
-
+// Creating a DocumentFragment// 
 function createFrag(title, image) {
-  // Creating a DocumentFragment
   const frag = document.createDocumentFragment();
   const heading = frag.appendChild(document.createElement("h1"));
-  heading.textContent = title;
-  
   frag.appendChild(document.createElement("hr"));
-
   const myImage = frag.appendChild(document.createElement("img"));
 
+  heading.textContent = title;
   myImage.style.width = "50%";
   myImage.style.height ="50%";
   myImage.src = image;
@@ -311,7 +300,6 @@ function createFrag(title, image) {
   return frag;
 }
 
-//const formContainer = mainEl.firstElementChild;
 async function myFunction() {
   mainEl.removeChild(formContainer);
   const images = [
@@ -323,24 +311,3 @@ async function myFunction() {
 }
 
 myFunction();
-
-/* myFunction().then(images.forEach((image) => {
-  mainEl.appendChild(createFrag(image.title, image.src));
-  //mainEl.removeChild(formContainer);
-}));  */ 
-
-
-/* (async () => {
-  const images = [
-    { "title": "Unlocked", "src": "images/unlocked.jpg"}];
-   /*  { "title": "parasit", "src": "image/unlocked.jpg"},
-    { "title": "Unlocked", "src": "image/unlocked.jpg"}
-  ];
- 
-    images.forEach((image) => {
-      mainEl.appendChild(createFrag(image.title, image.src));
-    })
-})(); 
-*/
-
-
