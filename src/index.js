@@ -43,6 +43,7 @@ mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
 mainEl.style.color = "var(--top-menu-bg)";
 mainEl.style.flexDirection = "column";
 mainEl.classList.add("flex-ctr");
+loginDiv.classList.add("login-div");
 
 const topMenuEl = document.getElementById("top-menu");
 
@@ -192,7 +193,6 @@ function formLogin() {
   const p1 = document.createElement("p");
   //const p2 = document.createElement("p");
 
-  loginDiv.classList.add("login-div");
   p1.textContent = "Login using your account information.";
   //p2.textContent = "Forgot your <a href="#">Username</a> or <a href="#">Password?</a>";
 
