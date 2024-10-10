@@ -31,6 +31,7 @@ var menuLinks = [
 ];
 
 const mainEl = document.querySelector("main");
+const formContainer = mainEl.firstElementChild;
 console.log(mainEl);
 
 mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
@@ -73,17 +74,18 @@ topMenuEl.addEventListener("click", (event) => {
   //console.log(event.target.text);
 
   if (event.target.hasAttribute("class")) {
-    event.target.removeAttribute("class");
-    let child = mainEl.firstElementChild;
+    //event.target.removeAttribute("class");
+    //let child = mainEl.firstElementChild;
     subMenuEl.style.top = "0";
-    while (child) {
+    /* while (child) {
       mainEl.removeChild(child);
       child = mainEl.firstElementChild;
-    };
-
-    myFunction().then(images.forEach((image) => {
+    };  */
+    //myFunction();
+    /* myFunction().then(images.forEach((image) => {
       mainEl.appendChild(createFrag(image.title, image.src));
-    }));  
+    }));  */
+    event.target.removeAttribute("class");
   } 
   else {
     event.target.classList.add("active");
@@ -92,15 +94,23 @@ topMenuEl.addEventListener("click", (event) => {
         e.removeAttribute("class");
       }
     });
-  }
-  
-  if (event.target === topMenuChildren[0]) {
-    mainEl.innerHTML = "<h1>About</h1>";
-    subMenuEl.style.top = "0";
-  } 
-  else {
-    event.target.setAttribute("subLinks", buildSubmenu(event.target.text));
-    subMenuEl.style.top = "100%";
+    if (event.target === topMenuChildren[0]) {
+      subMenuEl.style.top = "0";
+      mainEl.innerHTML = "<h1>About</h1>";
+      /* if (!event.target.hasAttribute("class")) {
+        //mainEl.removeChild(mainEl) 
+      } */
+    } 
+    else {
+      event.target.setAttribute("subLinks", buildSubmenu(event.target.text));
+      subMenuEl.style.top = "100%";
+      //mainEl.firstElementChild.innerHTML =  
+      let child = mainEl.firstElementChild.nextElementSibling;
+      while (child) {
+        mainEl.removeChild(child);
+        child = mainEl.firstElementChild.nextElementSibling;
+      }; 
+    }
   }
 }); 
 
@@ -139,13 +149,17 @@ subMenuEl.addEventListener("click", (e) => {
   });
 
   // Update the contents of mainEl, within an <h1>,
-  // to the contents of the <a> element clicked within subMenuEl
   mainEl.firstElementChild.innerText = str;
-  mainEl.removeChild(mainEl.lastElementChild);
-  signUp(str);
+  if (mainEl.firstElementChild === mainEl.lastElementChild) {
+    signUp();
+  } else {
+    mainEl.removeChild(lastElementChild);
+    signUp();
+  }
 });
 
-function signUp(strings) {
+function signUp() {
+  //mainEl.removeChild(lastElementChild);
   const mainDiv = document.createElement("div");
   mainDiv.style.width ="500px";
   mainDiv.style.height = "500px";
@@ -154,9 +168,63 @@ function signUp(strings) {
   mainEl.appendChild(mainDiv);
   //mainDiv.appendChild(document.createElement("h1"));
   mainDiv.appendChild(document.createElement("p"));
-  //mainDiv.firstElementChild.innerText = strings;
-
+  mainDiv.appendChild(loginForm);
 }
+
+
+
+const loginForm = document.getElementById("login");
+const userInput = loginForm.elements["username"];
+const passwordInput = loginForm.elements["password"];
+//passwordField = document.querySelector('[name="password"]');
+//const passwordInput = passwordField.value;
+
+
+
+loginForm.addEventListener("submit", validate);
+
+function validate(evt) {
+  evt.preventDefault();
+  const userVal = validateUser();
+  if (userVal === false) {
+    evt.returnValue = false;
+    return false;
+  }
+
+  const passwordVal = validatePassword();
+  if (passwordVal === false) {
+    evt.returnValue = false;
+    return false;
+  }
+
+  alert(`Name: ${userVal}
+    Password: ...that's a secret.`);
+    
+  return true;
+}
+
+// User Validation
+function validateUser() {
+  if (userInput.value === "") {
+    alert("Please provide a name.");
+    userInput.focus();
+    return false;
+  }
+  return userInput.value;
+}
+
+// Password Validation
+function validatePassword() {
+  if (passwordInput.value === "") {
+    alert("Please provide a password.");
+    passwordInput.focus();
+    return false;
+  }
+  return passwordInput.value;
+}
+
+
+
 
 // Create a helper function for the submenu bar
 function buildSubmenu(texts) {
@@ -210,7 +278,9 @@ function createFrag(title, image) {
   return frag;
 }
 
+//const formContainer = mainEl.firstElementChild;
 async function myFunction() {
+  mainEl.removeChild(formContainer);
   const images = [
     { "title": "Unlocked", "src": "images/unlocked.jpg" }];
 
@@ -219,9 +289,12 @@ async function myFunction() {
   })
 }
 
-myFunction().then(images.forEach((image) => {
+myFunction();
+
+/* myFunction().then(images.forEach((image) => {
   mainEl.appendChild(createFrag(image.title, image.src));
-}));  
+  //mainEl.removeChild(formContainer);
+}));  */ 
 
 
 /* (async () => {
