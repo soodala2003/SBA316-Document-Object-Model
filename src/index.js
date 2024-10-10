@@ -32,7 +32,10 @@ var menuLinks = [
 
 const mainEl = document.querySelector("main");
 const formContainer = mainEl.firstElementChild;
-console.log(mainEl);
+const loginForm = document.getElementById("login");
+const userInput = loginForm.elements["username"];
+const passwordInput = loginForm.elements["password"];
+//console.log(mainEl);
 
 mainEl.style.backgroundColor = "rgb(209, 232, 226)";  //"var(--main-bg)";
 mainEl.style.color = "var(--top-menu-bg)";
@@ -161,23 +164,25 @@ subMenuEl.addEventListener("click", (e) => {
 function signUp() {
   //mainEl.removeChild(lastElementChild);
   const loginDiv = document.createElement("div");
-  loginDiv.classList.add("login-div");
-  maindiv.style.width ="400px";
-  mainDiv.style.height = "500px";
-  mainDiv.style.backgroundColor = "#eee";
-  mainDiv.style.borderRadius = "10px"; 
+  const p1 = document.createElement("p");
 
-  mainEl.appendChild(mainDiv);
-  //mainDiv.appendChild(document.createElement("h1"));
-  mainDiv.appendChild(document.createElement("p"));
-  mainDiv.appendChild(loginForm);
+  loginDiv.classList.add("login-div");
+  p1.textContent = "Login using your account information.";
+  loginDiv.style.width ="400px";
+  loginDiv.style.height = "500px";
+  loginDiv.style.backgroundColor = "#eee";
+  loginDiv.style.borderRadius = "10px"; 
+  loginDiv.style.border = "2px solid gray";
+    loginDiv.style.boxShadow = "5px 10px 10px gray";  
+
+  mainEl.appendChild(loginDiv);
+  loginDiv.appendChild(p1);
+  loginDiv.appendChild(loginForm);
 }
 
-
-
-const loginForm = document.getElementById("login");
-const userInput = loginForm.elements["username"];
-const passwordInput = loginForm.elements["password"];
+//const loginForm = document.getElementById("login");
+//const userInput = loginForm.elements["username"];
+//const passwordInput = loginForm.elements["password"];
 //passwordField = document.querySelector('[name="password"]');
 //const passwordInput = passwordField.value;
 
